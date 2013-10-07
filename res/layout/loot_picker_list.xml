@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/saved_items"
+        android:layout_width="fill_parent"
+        android:layout_height="318dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1.02"
+        android:divider="@color/gold"
+        android:dividerHeight="1dp" >
+    </ListView>
+
+    <Button
+        android:id="@+id/create_new_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:onClick="addNewItem"
+        android:text="@string/track_new_button"
+        android:textColor="@color/gold" />
+
+</LinearLayout>

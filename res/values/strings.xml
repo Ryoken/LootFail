@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Loot Fail</string>
+	<string name="action_settings">Settings</string>
+	<string name="infoA">&#160;tries so far with a&#160;</string>
+	<string name="infoB">&#37; chance.</string>
+	<string name="success">Success!</string>
+	<string name="failure">Failure!</string>
+	<string name="edit">Edit</string>
+	<string name="reset">Reset</string>
+	<string name="successCongrats">Congratulations!</string>
+	<string name="successOddsA">The odds of failing this much are:</string>
+	<string name="successUnlucky">You are significantly unlucky!</string>
+	<string name="item_name">Item Name:</string>
+	<string name="track_new_button">Add New Item to Track</string>
+	<string name="add_item">Add Item</string>
+	<string name="place_holder">Place Holder Text</string>
+	<string name="drop_rate">Drop Rate:</string>
+	<string name="current_drop_rate">Current Drop Rate:</string>
+	<string name="number_of_tries">Number of Tries:</string>
+	<string name="return_to_item_list">Return to Item List</string>
+	<string name="return_to_item_tracking">Return to Item Tracking</string>
+	<string name="title_activity_add_item_dialog">AddItemDialog</string>
+	<string name="title_activity_item_adapter">ItemAdapter</string>
+
+</resources>
