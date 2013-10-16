@@ -29,7 +29,7 @@ public class ItemProvider extends ContentProvider {
 	// used for the UriMacher
 	private static final int ITEMS = 10;
 	private static final int ITEM_ID = 20;
-	private static final String AUTHORITY = "edu.mines.kschulz_chthomps.lootfail.ItemProvider";
+	private static final String AUTHORITY = "edu.mines.kschulz_chthomps.lootfail.itemprovider";
 	private static final String BASE_PATH = "items";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 	public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/items";
@@ -154,7 +154,7 @@ public class ItemProvider extends ContentProvider {
 	}
 
 	private void checkColumns(String[] projection) {
-		String[] available = {ItemFactory.NAME, ItemFactory.COUNT, ItemFactory.FINISHED, ItemFactory.ID };
+		String[] available = {ItemFactory.NAME, ItemFactory.CHANCE, ItemFactory.COUNT, ItemFactory.FINISHED, ItemFactory.ID};
 		if(projection != null) {
 			HashSet<String> requestedColumns = new HashSet<String> (Arrays.asList(projection));
 			HashSet<String> availableColumns = new HashSet<String> (Arrays.asList(available));

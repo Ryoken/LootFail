@@ -19,7 +19,8 @@
 	<string name="drop_rate">Drop Rate:</string>
 	<string name="current_drop_rate">Current Drop Rate:</string>
 	<string name="number_of_tries">Number of Tries:</string>
-	<string name="return_to_item_list">Return to Item List</string>
+	<string name="delete">Delete</string>
+	<string name="return_to_item_list">Return to List</string>
 	<string name="return_to_item_tracking">Return to Item Tracking</string>
 	<string name="title_activity_add_item_dialog">AddItemDialog</string>
 	<string name="title_activity_item_adapter">ItemAdapter</string>

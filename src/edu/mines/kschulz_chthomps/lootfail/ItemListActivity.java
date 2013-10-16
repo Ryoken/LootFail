@@ -7,13 +7,12 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Description: This activity will display a number of events with a set percent chance of success.
@@ -35,7 +34,6 @@ public class ItemListActivity extends ListActivity implements LoaderManager.Load
 	private Context context;
 
 	// Adapter used for the listview
-	//private ItemAdapter listAdapter;
 	private SimpleCursorAdapter adapter;
 
 	@Override
@@ -43,17 +41,11 @@ public class ItemListActivity extends ListActivity implements LoaderManager.Load
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loot_picker_list);
 		context = getApplicationContext();
-		
-		// clicking on an item causes the main activity to launch
-		ListView itemList = (ListView) findViewById(android.R.id.list);
-		itemList.setOnItemClickListener(new OnItemClick());
-
 		this.getListView();
-		//listAdapter = new ItemAdapter(this);
-		//itemList.setAdapter(listAdapter);
 		populate();
 		
 	}
+
 	/*
 	 * Populates the list with items from the database
 	 */
@@ -75,10 +67,7 @@ public class ItemListActivity extends ListActivity implements LoaderManager.Load
 		return true;
 	}
 
-
-	/*
-	 * UI functionality 
-	 */
+	// UI functionality
 
 	/**
 	 * Allows the user to move to the activity that will let them add a new item to track
@@ -86,27 +75,20 @@ public class ItemListActivity extends ListActivity implements LoaderManager.Load
 	 */
 	public void addNewItem(View v)
 	{
-		Intent i = new Intent(this,AddItemActivity.class);
+		Intent i = new Intent(this, AddItemActivity.class);
 		startActivity(i);
 	}
 
 	/**
 	 * OnClick listener for our list
-	 * When an item in the list is clicked, the Main Activity is started 
-	 * Currently uses intent extras to set the name of the item corresponding to the list click
-	 * Will eventually pass the primary key to the Main activity to populate data
-	 * @author cthompson
-	 *
 	 */
-	private class OnItemClick implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			Intent i = new Intent(context, MainActivity.class);
-			i.putExtra("Item Name", adapter.getItem(arg2).toString());
-			startActivity(i);
-		}
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Intent i = new Intent(context, MainActivity.class);
+		Uri uri = Uri.parse(ItemProvider.CONTENT_URI + "/" + id);
+		i.putExtra(ItemProvider.CONTENT_ITEM_TYPE, uri);
+		startActivity(i);
 	}
 
 	/**
