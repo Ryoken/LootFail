@@ -1,14 +1,19 @@
 package edu.mines.kschulz_chthomps.lootfail;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Description: This activity will display a number of events with a set percent chance of success.
@@ -24,18 +29,40 @@ import android.widget.ListView;
  * @author: Kyle "Ryoken" Schulz
  * @author: Christina Thompson
  */
-public class ItemListActivity extends Activity {
-	private Context context;	//Used in creating the intent for moving to the main activity when a list item is clicked
-	private ItemAdapter adapter;	//Adapter used for the listview
+public class ItemListActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+	// Used in creating the intent for moving to the main activity when a list item is clicked
+	private Context context;
+
+	// Adapter used for the listview
+	//private ItemAdapter listAdapter;
+	private SimpleCursorAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loot_picker_list);
 		context = getApplicationContext();
-		ListView itemList = (ListView) findViewById(R.id.saved_items);
-		adapter = new ItemAdapter(this);
-		itemList.setAdapter(adapter);
+		
+		// clicking on an item causes the main activity to launch
+		ListView itemList = (ListView) findViewById(android.R.id.list);
 		itemList.setOnItemClickListener(new OnItemClick());
+
+		this.getListView();
+		//listAdapter = new ItemAdapter(this);
+		//itemList.setAdapter(listAdapter);
+		populate();
+		
+	}
+	/*
+	 * Populates the list with items from the database
+	 */
+	private void populate() {
+		String[] from = new String[] {ItemFactory.NAME, ItemFactory.CHANCE, ItemFactory.COUNT};
+		int[] to = new int[] {R.id.list_item_name_value, R.id.list_item_drop_rate_value, R.id.list_item_num_tries_value};
+		getLoaderManager().initLoader(0, null, this);
+		this.adapter = new SimpleCursorAdapter(this, R.layout.loot_list_item, null, from, to, 0);
+		setListAdapter(this.adapter);
 	}
 
 	/**
@@ -61,7 +88,6 @@ public class ItemListActivity extends Activity {
 	{
 		Intent i = new Intent(this,AddItemActivity.class);
 		startActivity(i);
-
 	}
 
 	/**
@@ -81,5 +107,31 @@ public class ItemListActivity extends Activity {
 			i.putExtra("Item Name", adapter.getItem(arg2).toString());
 			startActivity(i);
 		}
+	}
+
+	/**
+	 * Creates a new loader after the initLoader() call
+	 */
+	@Override
+	public Loader<Cursor> onCreateLoader (int id, Bundle args){
+		String[] projection = {ItemFactory.ID, ItemFactory.NAME, ItemFactory.CHANCE, ItemFactory.COUNT};
+		CursorLoader cursorLoader = new CursorLoader(this, ItemProvider.CONTENT_URI, projection, null, null, null);
+		return cursorLoader;
+	}
+
+	/** 
+	 * Callback method from the loader.
+	 */
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		this.adapter.swapCursor(data);
+	}
+
+	/**
+	 * Callback method from the loader.
+	 */
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		this.adapter.swapCursor(null);
 	}
 }

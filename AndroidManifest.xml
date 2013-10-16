@@ -48,6 +48,12 @@
 			android:label="@string/title_activity_item_adapter" >
 		</activity>
 
+		<provider
+			android:name="edu.mines.kschulz_chthomps.lootfail.ItemProvider"
+			android:authorities="edu.mines.kschulz_chthomps.lootfail.itemprovider"
+			android:exported="false" >
+		</provider>
+
 	</application>
 
 </manifest>

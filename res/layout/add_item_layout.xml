@@ -12,6 +12,7 @@
 
         <TextView
             android:id="@+id/add_item_name_label"
+            android:labelFor="@+id/add_item_name_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/item_name"
@@ -36,6 +37,7 @@
 
         <TextView
             android:id="@+id/add_item_drop_rate_label"
+            android:labelFor="@+id/add_item_drop_rate_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drop_rate"
@@ -48,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" >
+            android:inputType="numberDecimal" >
 
             <requestFocus />
         </EditText>

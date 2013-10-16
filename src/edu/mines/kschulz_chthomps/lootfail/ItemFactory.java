@@ -16,12 +16,13 @@ public class ItemFactory extends SQLiteOpenHelper {
 
 	// database information
 	public static final String DB = "items.db";
-	private static final int VERSION = 1;
+	private static final int VERSION = 3;
 
 	// database fields
 	public static final String TABLE = "item",
-	                           ID = "id",
+	                           ID = "_id",
 	                           NAME = "item",
+	                           CHANCE = "chance",
 	                           COUNT = "count",
 	                           FINISHED = "finished";
 
@@ -29,8 +30,9 @@ public class ItemFactory extends SQLiteOpenHelper {
 	private static final String CREATE = 
 			"create table " + TABLE + "(" +
 			ID + " integer primary key autoincrement, " +
-			NAME + " text not null" +
-			COUNT + " integer default 0" +
+			NAME + " text not null, " +
+			CHANCE + " real not null, " +
+			COUNT + " integer default 0, " +
 			FINISHED + " integer default 0);";
 
 	// database removal
