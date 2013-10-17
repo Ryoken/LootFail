@@ -4,25 +4,30 @@
 package edu.mines.kschulz_chthomps.lootfail;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddItemActivity extends Activity {
 
-	private EditText formName;
-	private EditText formChance;
+	private EditText formName, formChance;
 	private Uri itemUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.add_item_layout);
+		formChance = (EditText)findViewById( R.id.add_item_drop_rate_field );
+		formName = (EditText)findViewById( R.id.add_item_name_field );
+		
 	}
 
 	/**
@@ -40,10 +45,6 @@ public class AddItemActivity extends Activity {
 	 * @param v button corresponding to this onClick method
 	 */
 	public void addItem(View v) {
-		//Intent i = new Intent(this, MainActivity.class);
-		formName = (EditText)findViewById( R.id.add_item_name_field );
-		formChance = (EditText)findViewById( R.id.add_item_drop_rate_field );
-
 		// gather form information
 		boolean isName = !TextUtils.isEmpty(formName.getText().toString());
 		boolean isChance = !TextUtils.isEmpty(formChance.getText().toString());
@@ -61,7 +62,7 @@ public class AddItemActivity extends Activity {
 		} else {
 
 			// validation failed
-			Toast.makeText( AddItemActivity.this, "Please enter valid input (name and drop rate required, drop rate must be less than or equal to 100).", Toast.LENGTH_LONG ).show();
+			showIncorrectData();
 		}
 	}
 
@@ -92,4 +93,19 @@ public class AddItemActivity extends Activity {
 		values.put(ItemFactory.CHANCE, chance);
 		itemUri = getContentResolver().insert(ItemProvider.CONTENT_URI, values);
 	}
+	
+	private void showIncorrectData()
+	{
+		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		 builder.setTitle(R.string.add_item_error_title);
+		 builder.setMessage(getResources().getString(R.string.add_item_error_message));
+		 builder.setPositiveButton(getResources().getString(R.string.dismiss), new DialogInterface.OnClickListener() {
+             public void onClick(DialogInterface dialog, int id) {
+                 dialog.dismiss();
+             }
+         });
+		 builder.show();
+	}
+
+
 }

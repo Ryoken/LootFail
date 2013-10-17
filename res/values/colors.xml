@@ -5,5 +5,6 @@
 	<color name="white">#fff</color>
 	<color name="background">#27408b</color>
 	<color name="gold">#ffd700</color>
+	<color name="horde_background">#B22222</color>
 
 </resources>

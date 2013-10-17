@@ -9,8 +9,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -39,8 +39,10 @@ public class ItemListActivity extends ListActivity implements LoaderManager.Load
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.loot_picker_list);
 		context = getApplicationContext();
+//		 getActionBar().show();
 		this.getListView();
 		populate();
 		
@@ -55,16 +57,6 @@ public class ItemListActivity extends ListActivity implements LoaderManager.Load
 		getLoaderManager().initLoader(0, null, this);
 		this.adapter = new SimpleCursorAdapter(this, R.layout.loot_list_item, null, from, to, 0);
 		setListAdapter(this.adapter);
-	}
-
-	/**
-	 * This may eventually be used to set the theme for the app
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.loot_picker_list, menu);
-		return true;
 	}
 
 	// UI functionality

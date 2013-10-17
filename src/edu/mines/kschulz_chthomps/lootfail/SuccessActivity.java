@@ -16,13 +16,15 @@
 
 package edu.mines.kschulz_chthomps.lootfail;
 import java.math.BigDecimal;
+import java.util.Locale;
 
-import android.net.Uri;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 public class SuccessActivity extends Activity {
@@ -32,7 +34,9 @@ public class SuccessActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_success);
+		
 		Bundle extras = getIntent().getExtras();
 		uri = extras.getParcelable(ItemProvider.CONTENT_ITEM_TYPE);
 		this.initialize();
@@ -50,7 +54,9 @@ public class SuccessActivity extends Activity {
 			int numTries = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ItemFactory.COUNT)));
 			String name = cursor.getString(cursor.getColumnIndexOrThrow(ItemFactory.NAME));
 			BigDecimal chance = getStreakChance(numTries, Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(ItemFactory.CHANCE))));
-			message.setText("It took " + numTries + " tries to get \"" + name + "\".  There was a " + chance + "% chance of that happening...  you are " + getUnlucky(chance) + " unlucky!");
+			String messageText = String.format(Locale.getDefault(),"It took %d tries to get %s\n There was a %0.2f% chance of that happening\n" +
+					"you are %s Unlucky!", numTries, name, chance, getUnlucky(chance));
+			message.setText(messageText);
 			cursor.close();
 		}
 	}

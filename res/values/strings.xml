@@ -24,5 +24,11 @@
 	<string name="return_to_item_tracking">Return to Item Tracking</string>
 	<string name="title_activity_add_item_dialog">AddItemDialog</string>
 	<string name="title_activity_item_adapter">ItemAdapter</string>
-
+	<string name="dismiss">Dismiss</string>
+	<string name="add_item_error_title">Cannot Add Item</string>
+	<string name="add_item_error_message">Please enter valid input (name and drop rate required, drop rate must be less than or equal to 100)</string>
+	<string name="yes">Yes</string>
+	<string name="reset_item_message">Are you sure you want to reset the item data?</string>
+	<string name="delete_item_message">Are you sure you want to delete this item?</string>
+	<string name="no">No</string>
 </resources>

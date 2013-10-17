@@ -1,13 +1,15 @@
 package edu.mines.kschulz_chthomps.lootfail;
 
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.view.Menu;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 /**
@@ -22,6 +24,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
 		// get the elements we need
@@ -43,13 +46,6 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	/*
 	 * Called when the success button is clicked.
@@ -84,8 +80,24 @@ public class MainActivity extends Activity {
 		ContentValues values = new ContentValues();
 		values.put(ItemFactory.COUNT, 0);
 		getContentResolver().update(uri, values, null, null);
-		Intent i = new Intent(this, ItemListActivity.class);
-		startActivity(i);
+		final Intent i = new Intent(this, ItemListActivity.class);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			 builder.setMessage(getResources().getString(R.string.reset_item_message));
+			 builder.setPositiveButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+	             public void onClick(DialogInterface dialog, int id) {
+	                 dialog.dismiss();
+	             }
+	         });
+			 builder.setNegativeButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+	             public void onClick(DialogInterface dialog, int id) {
+	            	 
+	         		startActivity(i);
+	             }
+	         });
+			 builder.show();
+		
+
+		
 	}
 
 	/*
@@ -94,7 +106,20 @@ public class MainActivity extends Activity {
 	 */
 	public void delete(View v) {
 		getContentResolver().delete(uri, null, null);
-		Intent i = new Intent(this, ItemListActivity.class);
-		startActivity(i);
+		final Intent i = new Intent(this, ItemListActivity.class);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			 builder.setMessage(getResources().getString(R.string.delete_item_message));
+			 builder.setPositiveButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+	             public void onClick(DialogInterface dialog, int id) {
+	                 dialog.dismiss();
+	             }
+	         });
+			 builder.setNegativeButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+	             public void onClick(DialogInterface dialog, int id) {
+	            	 
+	         		startActivity(i);
+	             }
+	         });
+			 builder.show();
 	}
 }
