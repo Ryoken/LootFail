@@ -12,11 +12,11 @@
  *                          but none was used directly.
  * 
  * @author: Kyle "Ryoken" Schulz
+ * @author: Christina Thompson
  */
 
 package edu.mines.kschulz_chthomps.lootfail;
 import java.math.BigDecimal;
-import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -54,8 +54,7 @@ public class SuccessActivity extends Activity {
 			int numTries = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ItemFactory.COUNT)));
 			String name = cursor.getString(cursor.getColumnIndexOrThrow(ItemFactory.NAME));
 			BigDecimal chance = getStreakChance(numTries, Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(ItemFactory.CHANCE))));
-			String messageText = String.format(Locale.getDefault(),"It took %d tries to get %s\n There was a %0.2f% chance of that happening\n" +
-					"you are %s Unlucky!", numTries, name, chance, getUnlucky(chance));
+			String messageText = "It took " + numTries + " tries to get \"" + name + "\".\nThere was a " + chance + "% chance of that happening... you are " + getUnlucky(chance) + " unlucky!";
 			message.setText(messageText);
 			cursor.close();
 		}
@@ -102,17 +101,6 @@ public class SuccessActivity extends Activity {
 	public void returnToItemList(View v)
 	{
 		Intent i = new Intent(this, ItemListActivity.class);
-		startActivity(i);
-	}
-
-	/**
-	 * Returns the user to the item tracking screen
-	 * @param v
-	 */
-	public void returnToItemTracking(View v)
-	{
-		Intent i = new Intent(this, MainActivity.class);
-		i.putExtra("Item Name", "temp");
 		startActivity(i);
 	}
 }

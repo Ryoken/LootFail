@@ -15,6 +15,9 @@ import android.widget.TextView;
 /**
  * Description: This activity displays an item's details.
  *              The main activity you are looking for is ItemListActivity.
+ * 
+ * @author: Kyle "Ryoken" Schulz
+ * @author: Christina Thompson
  */
 public class MainActivity extends Activity {
 
@@ -74,6 +77,7 @@ public class MainActivity extends Activity {
 
 	/*
 	 * Called when the reset button is clicked.
+	 * A Prompt dialogue will confirm intent.
 	 * Sets the count to 0, then renders the list.
 	 */
 	public void reset(View v) {
@@ -82,44 +86,40 @@ public class MainActivity extends Activity {
 		getContentResolver().update(uri, values, null, null);
 		final Intent i = new Intent(this, ItemListActivity.class);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			 builder.setMessage(getResources().getString(R.string.reset_item_message));
-			 builder.setPositiveButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-	             public void onClick(DialogInterface dialog, int id) {
-	                 dialog.dismiss();
-	             }
-	         });
-			 builder.setNegativeButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-	             public void onClick(DialogInterface dialog, int id) {
-	            	 
-	         		startActivity(i);
-	             }
-	         });
-			 builder.show();
-		
-
-		
+		builder.setMessage(getResources().getString(R.string.reset_item_message));
+		builder.setPositiveButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				startActivity(i);
+			}
+		});
+		builder.show();
 	}
 
 	/*
 	 * Called when the delete button is clicked.
+	 * A Prompt dialogue will confirm intent.
 	 * Removes the item, then renders the list.
 	 */
 	public void delete(View v) {
 		getContentResolver().delete(uri, null, null);
 		final Intent i = new Intent(this, ItemListActivity.class);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			 builder.setMessage(getResources().getString(R.string.delete_item_message));
-			 builder.setPositiveButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-	             public void onClick(DialogInterface dialog, int id) {
-	                 dialog.dismiss();
-	             }
-	         });
-			 builder.setNegativeButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-	             public void onClick(DialogInterface dialog, int id) {
-	            	 
-	         		startActivity(i);
-	             }
-	         });
-			 builder.show();
+		builder.setMessage(getResources().getString(R.string.delete_item_message));
+		builder.setPositiveButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				startActivity(i);
+			}
+		});
+		builder.show();
 	}
 }

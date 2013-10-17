@@ -40,16 +40,6 @@
             android:text="@string/return_to_item_list"
             android:textColor="@color/gold" />
 
-        <Button
-            android:id="@+id/retirn_to_item_tracking"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="returnToItemTracking"
-            android:text="@string/return_to_item_tracking"
-            android:textColor="@color/gold" />
-
     </LinearLayout>
 
 </LinearLayout>

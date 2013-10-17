@@ -27,7 +27,7 @@ public class AddItemActivity extends Activity {
 		setContentView(R.layout.add_item_layout);
 		formChance = (EditText)findViewById( R.id.add_item_drop_rate_field );
 		formName = (EditText)findViewById( R.id.add_item_name_field );
-		
+		formName.requestFocus();
 	}
 
 	/**
@@ -66,22 +66,19 @@ public class AddItemActivity extends Activity {
 		}
 	}
 
-	protected void onSaveInstanceState(Bundle outState)
-	{
+	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		saveState();
 		outState.putParcelable(ItemProvider.CONTENT_ITEM_TYPE, itemUri);
 	}
-	
+
 	@Override
-	protected void onPause()
-	{
-	  super.onPause();
-	  saveState();
+	protected void onPause(){
+		super.onPause();
+		saveState();
 	}
-	
-	private void saveState()
-	{
+
+	private void saveState() {
 		String name = formName.getText().toString();
 		String chance = formChance.getText().toString();
 		if(name.length() == 0 && chance.length() == 0) {
@@ -93,19 +90,16 @@ public class AddItemActivity extends Activity {
 		values.put(ItemFactory.CHANCE, chance);
 		itemUri = getContentResolver().insert(ItemProvider.CONTENT_URI, values);
 	}
-	
-	private void showIncorrectData()
-	{
-		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		 builder.setTitle(R.string.add_item_error_title);
-		 builder.setMessage(getResources().getString(R.string.add_item_error_message));
-		 builder.setPositiveButton(getResources().getString(R.string.dismiss), new DialogInterface.OnClickListener() {
-             public void onClick(DialogInterface dialog, int id) {
-                 dialog.dismiss();
-             }
-         });
-		 builder.show();
+
+	private void showIncorrectData() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.add_item_error_title);
+		builder.setMessage(getResources().getString(R.string.add_item_error_message));
+		builder.setPositiveButton(getResources().getString(R.string.dismiss), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.dismiss();
+			}
+		});
+		builder.show();
 	}
-
-
 }
